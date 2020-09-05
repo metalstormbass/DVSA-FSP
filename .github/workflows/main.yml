@@ -59,9 +59,10 @@ jobs:
        #path: ./cloudguard_output/CloudGuardScanReport.html
     
     - run: |
-        npm ci
         pip install awscli 
-    - name: serverless deploy
-      uses: serverless/github-action@master
-      with:
-        args: deploy
+        npm i
+        sls deploy    
+        npm run-script client:build
+        sls client deploy
+
+
