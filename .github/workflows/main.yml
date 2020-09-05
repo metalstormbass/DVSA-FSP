@@ -40,18 +40,18 @@ jobs:
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         aws-region: us-east-2  
      
-    - name: Run Cloudguard Proact 
+    #- name: Run Cloudguard Proact 
       #run: |
           #sls package -t ${{ secrets.DOME9_CREDS }}
-      working-directory: ${{env.working-directory}}
+     # working-directory: ${{env.working-directory}}
       
-    - name: Upload yml output
+    #- name: Upload yml output
       #uses: actions/upload-artifact@v2
       #with:
        # name: cloudguard_output.yml
        # path: ./cloudguard_output/CloudGuardScanResults.yaml
    
-    - name: Upload html output
+    #- name: Upload html output
      # uses: actions/upload-artifact@v2
       #with:
       # name: cloudguard_output.html
