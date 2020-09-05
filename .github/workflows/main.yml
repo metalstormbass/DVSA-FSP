@@ -57,10 +57,8 @@ jobs:
       # name: cloudguard_output.html
        #path: ./cloudguard_output/CloudGuardScanReport.html
     
-    - name: Deploy Serverless Function to AWS with FSP 
-      run: |
-          pip install awscli --upgrade --user
-          npm i
-          sls deploy
-          npm run-script client:build
-          sls client deploy
+    - run: npm ci
+    - name: serverless deploy
+      uses: serverless/github-action@master
+      with:
+        args: deploy
