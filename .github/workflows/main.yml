@@ -57,12 +57,12 @@ jobs:
       #with:
       # name: cloudguard_output.html
        #path: ./cloudguard_output/CloudGuardScanReport.html
-    
-    - run: |
+    - name: Deploy to AWS
+      run: |
         pip install awscli 
         npm i
-        sls deploy    
+        sls deploy -t ${{ secrets.DOME9_CREDS }}  
         npm run-script client:build
-        sls client deploy
+        sls client deploy -t ${{ secrets.DOME9_CREDS }}
 
 
