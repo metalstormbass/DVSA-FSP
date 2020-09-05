@@ -31,7 +31,7 @@ jobs:
           npm install --save serverless-scriptable-plugin
           npm install --save serverless-cloudguard-plugin
           pip install requests
-          pip install awscli --upgrade --user
+          
           
       
     - name: Configure AWS Credentials
@@ -58,7 +58,9 @@ jobs:
       # name: cloudguard_output.html
        #path: ./cloudguard_output/CloudGuardScanReport.html
     
-    - run: npm ci
+    - run: |
+        npm ci
+        pip install awscli 
     - name: serverless deploy
       uses: serverless/github-action@master
       with:
