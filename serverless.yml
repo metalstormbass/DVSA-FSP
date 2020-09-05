@@ -30,7 +30,7 @@ custom:
   accountId: ${file(backend/serverless/scripts/vars.js):accountId}
   cloudguard:
     fsp:
-      Enabled: false
+      Enabled: true
     proact:
       Enabled: true
       StoreJobReport: true
