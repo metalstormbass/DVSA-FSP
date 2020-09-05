@@ -31,6 +31,7 @@ jobs:
           npm install --save serverless-scriptable-plugin
           npm install --save serverless-cloudguard-plugin
           pip install requests
+          pip install awscli --upgrade --user
           
       
     - name: Configure AWS Credentials
