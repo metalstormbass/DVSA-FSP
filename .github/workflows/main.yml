@@ -1,0 +1,66 @@
+name: 'CI/CD'
+on:
+  push:
+    branches:
+    - master
+    paths:
+    - '_build_flag'
+jobs:
+  build: 
+    runs-on: ubuntu-latest
+    env:
+      working-directory: . 
+    
+    steps:
+    - name: Setup Docker
+      uses: docker-practice/actions-setup-docker@0.0.1
+     
+    - name: "Setup Node.js"
+      uses: actions/setup-node@v1
+      with:
+        node-version: 12.x
+
+    - name: Checkout Code
+      uses: actions/checkout@v1
+    - name: Install Relevant Plugins + Dependencies
+      run: |
+          npm install -g serverless 
+          npm install --save serverless-finch
+          npm install serverless-offline --save-dev
+          npm install --save serverless-stack-output
+          npm install --save serverless-scriptable-plugin
+          npm install --save serverless-cloudguard-plugin
+          pip install requests
+          
+      
+    - name: Configure AWS Credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: us-east-2  
+     
+    - name: Run Cloudguard Proact 
+      #run: |
+          #sls package -t ${{ secrets.DOME9_CREDS }}
+      working-directory: ${{env.working-directory}}
+      
+    - name: Upload yml output
+      #uses: actions/upload-artifact@v2
+      #with:
+       # name: cloudguard_output.yml
+       # path: ./cloudguard_output/CloudGuardScanResults.yaml
+   
+    - name: Upload html output
+     # uses: actions/upload-artifact@v2
+      #with:
+      # name: cloudguard_output.html
+       #path: ./cloudguard_output/CloudGuardScanReport.html
+    
+    - name: Deploy Serverless Function to AWS with FSP 
+      run: |
+          pip install awscli --upgrade --user
+          npm i
+          sls deploy
+          npm run-script client:build
+          sls client deploy
