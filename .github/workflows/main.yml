@@ -48,7 +48,7 @@ jobs:
         sls deploy -t ${{ secrets.DOME9_CREDS }}  
         npm run-script client:build
         sls client deploy -t ${{ secrets.DOME9_CREDS }}
-
+      timeout-minutes: 30
 
     - name: Upload yml output
       uses: actions/upload-artifact@v2
