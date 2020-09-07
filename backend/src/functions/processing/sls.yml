@@ -23,7 +23,7 @@ functions:
         - backend/src/functions/processing/feedback_uploads.py
     events:
     - s3:
-        bucket: feedbackbucket
+        bucket: feedbackbucket2
         event: s3:ObjectCreated:*
 
   CreateReceipt:
@@ -91,7 +91,7 @@ functions:
     memorySize: 128
     events:
     - s3:
-        bucket: receiptsbucket
+        bucket: receiptsbucket2
         event: s3:ObjectCreated:*
         rules:
         - suffix: .raw
