@@ -42,12 +42,14 @@ jobs:
        
 
     - name: Deploy to AWS
+      env:
+        CG-CREDS: ${{ secrets.DOME9_CREDS }}  
       run: |
         pip install awscli 
         npm i
-        sls deploy -t ${{ secrets.DOME9_CREDS }}  
+        sls deploy -t ${CG_CREDS}  
         npm run-script client:build
-        sls client deploy -t ${{ secrets.DOME9_CREDS }}
+        sls client deploy -t ${CG_CREDS}
       timeout-minutes: 30
       continue-on-error: true
 
